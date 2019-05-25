@@ -1,0 +1,42 @@
+<html>
+    <body>
+
+        <canvas id="myCanvas" width=170px height=130px style="border:1px solid #000000;"></canvas>
+
+        <script>
+            const canvas = document.getElementById('myCanvas');
+            const context = canvas.getContext('2d');
+            let x = 50;
+            let y = 50;
+            let xChange = 1;
+            let yChange = 1;
+
+            function blob(xl, yl, size, color){
+              context.clearRect(0, 0, canvas.width, canvas.height);
+
+              context.beginPath();
+              context.arc(xl, yl,size,0,2*Math.PI);
+              context.fillStyle = color;
+              context.fill();
+              context.stroke();
+              if(x >= canvas.width || x <= 0){
+                xChange *= -1
+              }
+
+              if(y >= canvas.height || y <= 0){
+                yChange *= -1
+              }
+              x += xChange;
+              y += yChange;
+            }
+            setInterval(function(){
+                blob(x,y,20,"green");
+                }
+            ,10)
+
+            //blob(100,100,25,"green");
+            //blob(25,75,12,"red");
+            //blob(60,22,18,"blue");
+        </script>
+    </body>
+</html>
