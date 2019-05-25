@@ -1,15 +1,14 @@
 <html>
     <body>
 
-        <canvas id="myCanvas" width=170px height=130px style="border:1px solid #000000;"></canvas>
+        <canvas id="myCanvas" width=370px height=330px style="border:1px solid #000000;"></canvas>
 
         <script>
             const canvas = document.getElementById('myCanvas');
             const context = canvas.getContext('2d');
-            let x = 50;
-            let y = 50;
-            let xChange = 1;
-            let yChange = 1;
+            let qwwe=30;
+            let blobs = new Array();
+            const colors = new Array("red","green","blue","yellow","orange","purple","pink");
 
             class Blob {
                 constructor(color, size){ //this is your init
@@ -17,8 +16,8 @@
                     this.y = Math.random() * canvas.height
                     this.color = color
                     this.size = size
-                    this.xChange = 1;
-                    this.yChange = 1;
+                    this.xChange = Math.random();
+                    this.yChange = Math.random();
                 }
 
                 move(){
@@ -43,8 +42,24 @@
                     context.stroke();
                 }
             }
-            const newBlob = new Blob("green",25)
-            newBlob.draw();
+            function randomChoice(arr){
+                return arr[Math.floor(Math.random() * arr.length)];
+            }
+
+
+            for (let i = 0; i<qwwe; i++){
+                let randColor = randomChoice(colors)
+                let newBlob = new Blob(randColor,25);
+                blobs.push(newBlob);
+            }
+            function canvasDraw(){
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                blobs.forEach(function(obj){
+                    obj.draw();
+                    obj.move();
+                })
+            }
+            setInterval(canvasDraw, 10);
 
             //blob(100,100,25,"green");
             //blob(25,75,12,"red");
